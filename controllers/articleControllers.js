@@ -10,3 +10,13 @@ export async function postArticle(req, res){
         return res.sendStatus(500)
     }
 }
+
+export async function showArticles(req, res){
+    try{
+        const articles = await db.collection("articles").find().toArray()
+        return res.send(articles)
+    }
+    catch{
+        return res.sendStatus(500)
+    }
+}
