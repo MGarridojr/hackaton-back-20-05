@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import db from "../db.js";
 
 
@@ -18,5 +19,17 @@ export async function showArticles(req, res){
     }
     catch{
         return res.sendStatus(500)
+    }
+}
+
+export async function showArticle(req, res){
+    const { id } = req.params
+    try{
+        const article = await db.collection("articles").find({
+            _id: new ObjectId(id) 
+        }).toArray()
+        return res.send(article)
+    } catch{
+        return res.sendStatus(404)
     }
 }
